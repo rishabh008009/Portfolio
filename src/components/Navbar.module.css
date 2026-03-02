@@ -1,0 +1,145 @@
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.scrolled {
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+}
+
+.inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.logoIcon {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.logoDivider {
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+.logoText {
+    color: var(--text-primary);
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.link {
+    position: relative;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: color var(--duration-fast);
+    text-decoration: none;
+}
+
+.link:hover {
+    color: var(--text-primary);
+}
+
+.link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 60%;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: transform var(--duration-fast) var(--ease-smooth);
+}
+
+.link:hover::after,
+.link.active::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+.link.active {
+    color: var(--accent-light);
+}
+
+.burger {
+    display: none;
+    color: var(--text-primary);
+    padding: 0.5rem;
+}
+
+.mobileMenu {
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.mobileLinks {
+    padding: 1rem 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.mobileLink {
+    display: block;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border-radius: 8px;
+    transition: all var(--duration-fast);
+    text-decoration: none;
+}
+
+.mobileLink:hover,
+.mobileLink.active {
+    color: var(--accent-light);
+    background: rgba(139, 92, 246, 0.1);
+}
+
+@media (max-width: 768px) {
+    .links {
+        display: none;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    .inner {
+        padding: 0 1.25rem;
+    }
+}

@@ -1,0 +1,116 @@
+.about {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+/* ---- Photo ---- */
+.photoWrap {
+    display: flex;
+    justify-content: center;
+}
+
+.photoFrame {
+    position: relative;
+    width: 220px;
+    height: 220px;
+}
+
+.photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    border: 2px solid var(--border);
+    position: relative;
+    z-index: 2;
+    transition: transform var(--duration-normal) var(--ease-smooth);
+}
+
+.photo:hover {
+    transform: scale(1.05);
+}
+
+.photoGlow {
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.12;
+    filter: blur(30px);
+    z-index: 1;
+}
+
+/* ---- Text ---- */
+.bio {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.bio strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* ---- Tool chips ---- */
+.tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+}
+
+.toolChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    cursor: default;
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.toolChip:hover {
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+    background: rgba(139, 92, 246, 0.08);
+}
+
+.toolIcon {
+    font-size: 1rem;
+}
+
+.toolName {
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        text-align: center;
+    }
+
+    .photoFrame {
+        width: 180px;
+        height: 180px;
+    }
+
+    .tools {
+        justify-content: center;
+    }
+}
