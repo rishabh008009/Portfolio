@@ -17,6 +17,7 @@ const projects = [
         tools: ['React', 'TypeScript', 'Supabase', 'Google Gemini AI', 'n8n'],
         websiteUrl: 'https://recruit-ai-sooty.vercel.app/',
         githubUrl: 'https://github.com/rishabh008009/Recruit-AI',
+        image: '/recruit-ai-thumb.png',
     },
     {
         id: 2,
@@ -109,7 +110,11 @@ export default function Projects() {
                             onClick={() => setSelected(project)}
                         >
                             <div className={styles.cardThumb}>
-                                <Layers size={32} strokeWidth={1.2} />
+                                {project.image ? (
+                                    <img src={project.image} alt={project.title} className={styles.thumbImg} />
+                                ) : (
+                                    <Layers size={32} strokeWidth={1.2} />
+                                )}
                             </div>
                             <h3 className={styles.cardTitle}>{project.title}</h3>
                             <p className={styles.cardTagline}>{project.tagline}</p>
