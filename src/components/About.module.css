@@ -126,9 +126,9 @@
 }
 
 /* ---- Responsive ---- */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .about {
-        padding: 5rem 1.5rem;
+        padding: 6rem 2rem;
     }
 
     .inner {
@@ -137,8 +137,18 @@
     }
 
     .photoWrap {
-        max-width: 300px;
+        max-width: 360px;
         margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .about {
+        padding: 5rem 1.5rem;
+    }
+
+    .photoWrap {
+        max-width: 300px;
     }
 
     .heading {

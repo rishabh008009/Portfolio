@@ -314,12 +314,22 @@
 }
 
 /* ---- Responsive ---- */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .certifications {
-        padding: 5rem 1.5rem;
+        padding: 6rem 2rem;
     }
 
     .grid {
         grid-template-columns: 1fr;
+    }
+
+    .heading {
+        margin-bottom: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .certifications {
+        padding: 5rem 1.5rem;
     }
 }

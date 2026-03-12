@@ -287,7 +287,15 @@
         gap: 0.75rem;
     }
 
+    .cell {
+        padding: 1.5rem;
+    }
+
     .taglineText {
         font-size: 1.3rem;
+    }
+
+    .statCell {
+        min-height: 120px;
     }
 }

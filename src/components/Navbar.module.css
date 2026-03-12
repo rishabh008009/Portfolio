@@ -181,8 +181,34 @@
     transform: rotate(-45deg) translate(2px, -4px);
 }
 
+/* ---- Tablet ---- */
+@media (max-width: 900px) {
+    .nav {
+        padding: 1rem 1.5rem;
+    }
+
+    .nav.scrolled {
+        padding: 0.75rem 1.5rem;
+    }
+
+    .links {
+        gap: 1.25rem;
+    }
+
+    .link {
+        font-size: 0.6rem;
+        letter-spacing: 2px;
+    }
+
+    .cta {
+        font-size: 0.6rem;
+        padding: 0.5rem 1rem;
+        letter-spacing: 1.5px;
+    }
+}
+
 /* ---- Mobile ---- */
-@media (max-width: 768px) {
+@media (max-width: 640px) {
     .nav {
         padding: 1rem 1.25rem;
     }

@@ -273,6 +273,20 @@
 }
 
 /* ---- Responsive ---- */
+@media (max-width: 1024px) {
+    .projects {
+        padding: 6rem 2rem;
+    }
+
+    .grid {
+        gap: 1.5rem;
+    }
+
+    .heading {
+        margin-bottom: 3rem;
+    }
+}
+
 @media (max-width: 768px) {
     .projects {
         padding: 5rem 1.5rem;
@@ -288,5 +302,19 @@
 
     .modal {
         padding: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal {
+        padding: 1.5rem;
+    }
+
+    .modalTitle {
+        font-size: 1.5rem;
+    }
+
+    .overlay {
+        padding: 1rem;
     }
 }

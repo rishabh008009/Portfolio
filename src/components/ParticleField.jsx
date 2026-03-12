@@ -20,8 +20,9 @@ export default function ParticleField() {
         window.addEventListener('resize', resize);
 
         const particles = [];
-        const count = 80;
-        const connectionDistance = 150;
+        const isMobile = window.innerWidth < 768;
+        const count = isMobile ? 40 : 80;
+        const connectionDistance = isMobile ? 100 : 150;
         const mouseRadius = 200;
 
         for (let i = 0; i < count; i++) {
