@@ -1,14 +1,14 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
 import Image from 'next/image';
+import { Download } from 'lucide-react';
 import styles from './About.module.css';
 
 const tools = [
     { name: 'Power BI', icon: '📊' },
     { name: 'Jira', icon: '📋' },
     { name: 'Figma', icon: '🎨' },
-    { name: 'Canva', icon: '🖌️' },
+    { name: 'Canva', icon: '✏️' },
     { name: 'Excel', icon: '📈' },
     { name: 'SQL', icon: '🗃️' },
     { name: 'Supabase', icon: '⚡' },
@@ -17,77 +17,74 @@ const tools = [
     { name: 'React', icon: '⚛️' },
 ];
 
-const fadeUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: (i = 0) => ({
-        opacity: 1, y: 0,
-        transition: { delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-    }),
-};
-
 export default function About() {
     return (
         <section id="about" className={styles.about}>
-            <div className="section">
+            <div className={styles.inner}>
+                {/* Left — Photo */}
                 <motion.div
-                    initial="hidden"
-                    whileInView="visible"
+                    className={styles.photoCol}
+                    initial={{ opacity: 0, x: -40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: '-100px' }}
-                    className={styles.grid}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 >
-                    {/* Photo */}
-                    <motion.div className={styles.photoWrap} variants={fadeUp} custom={0}>
-                        <div className={styles.photoFrame}>
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                                src="/profile.jpg"
-                                alt="Rishabh Singh"
-                                className={styles.photo}
-                            />
-                            <div className={styles.photoGlow} />
-                        </div>
-                    </motion.div>
-
-                    {/* Text */}
-                    <div className={styles.text}>
-                        <motion.p className="section-label" variants={fadeUp} custom={1}>
-                            <Sparkles size={14} /> About Me
-                        </motion.p>
-                        <motion.h2 className="section-title" variants={fadeUp} custom={2}>
-                            8+ Years at Amazon.<br />Now Building AI Products.
-                        </motion.h2>
-                        <motion.p className={styles.bio} variants={fadeUp} custom={3}>
-                            Hi, I&apos;m <strong>Rishabh Singh</strong> — a product-focused professional with
-                            8+ years of experience at <strong>Amazon</strong>, transitioning from enterprise
-                            operations leadership into product management. I completed my{' '}
-                            <strong>Product Management &amp; Agentic AI certification from IIT Patna</strong>,
-                            gaining hands-on experience in problem framing, user research, PRD writing,
-                            wireframing, and roadmap prioritization.
-                        </motion.p>
-                        <motion.p className={styles.bio} variants={fadeUp} custom={4}>
-                            My operations background gives me a unique edge — I deeply understand
-                            user pain points, data-driven decision making, and cross-functional collaboration.
-                            I&apos;ve already delivered AI-powered platforms including an intelligent{' '}
-                            <strong>recruitment system leveraging Google Gemini AI</strong> and workflow
-                            automation. Now I&apos;m channeling those skills into building scalable,
-                            user-centric products.
-                        </motion.p>
-
-                        {/* Tool strip */}
-                        <motion.div className={styles.tools} variants={fadeUp} custom={5}>
-                            {tools.map(({ name, icon }) => (
-                                <motion.div
-                                    key={name}
-                                    className={styles.toolChip}
-                                    whileHover={{ scale: 1.08, y: -3 }}
-                                    transition={{ type: 'spring', stiffness: 300 }}
-                                >
-                                    <span className={styles.toolIcon}>{icon}</span>
-                                    <span className={styles.toolName}>{name}</span>
-                                </motion.div>
-                            ))}
-                        </motion.div>
+                    <div className={styles.photoWrap}>
+                        <Image
+                            src="/profile-nobg.png"
+                            alt="Rishabh Singh"
+                            width={420}
+                            height={520}
+                            className={styles.photo}
+                            priority
+                        />
                     </div>
+                </motion.div>
+
+                {/* Right — Content */}
+                <motion.div
+                    className={styles.contentCol}
+                    initial={{ opacity: 0, x: 40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: '-100px' }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                >
+                    <span className={styles.label}>— ✦ About Me</span>
+                    <h2 className={styles.heading}>
+                        8+ Years at Amazon.
+                        <br />
+                        Now Building AI Products.
+                    </h2>
+                    <p className={styles.body}>
+                        Hi, I&apos;m <strong>Rishabh Singh</strong> — a product-focused professional
+                        with 8+ years of experience at <strong>Amazon</strong>, transitioning from
+                        enterprise operations leadership into product management. I completed my{' '}
+                        <strong>Product Management &amp; Agentic AI certification from IIT Patna</strong>,
+                        gaining hands-on experience in problem framing, user research, PRD writing,
+                        wireframing, and roadmap prioritization.
+                    </p>
+                    <p className={styles.body}>
+                        My operations background gives me a unique edge — I deeply understand user
+                        pain points, data-driven decision making, and cross-functional collaboration.
+                        I&apos;ve already delivered AI-powered platforms including an intelligent{' '}
+                        <strong>recruitment system leveraging Google Gemini AI</strong> and workflow
+                        automation. Now I&apos;m channeling those skills into building scalable,
+                        user-centric products.
+                    </p>
+
+                    {/* Tool badges */}
+                    <div className={styles.badges}>
+                        {tools.map((tool) => (
+                            <span key={tool.name} className={styles.badge}>
+                                <span className={styles.badgeIcon}>{tool.icon}</span>
+                                {tool.name}
+                            </span>
+                        ))}
+                    </div>
+
+                    <a href="/resume.pdf" download className={styles.downloadBtn}>
+                        <Download size={16} /> Download Resume
+                    </a>
                 </motion.div>
             </div>
         </section>

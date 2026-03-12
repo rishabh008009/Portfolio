@@ -1,145 +1,225 @@
+/* ---- Base nav ---- */
 .nav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    transition: all var(--duration-normal) var(--ease-smooth);
+    padding: 1.25rem 2.5rem;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.scrolled {
-    background: rgba(10, 10, 15, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
+/* ---- Scrolled: frosted glass bar ---- */
+.nav.scrolled {
+    padding: 0.75rem 2.5rem;
+    background: rgba(23, 30, 25, 0.92);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow:
+        0 4px 30px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .inner {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 2rem;
-    height: var(--nav-height);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    max-width: var(--max-width);
+    margin: 0 auto;
 }
 
+/* ---- Logo ---- */
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-heading);
-    font-size: 1.3rem;
-    font-weight: 800;
-    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    transition: opacity 0.3s;
 }
 
-.logoIcon {
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.logo:hover {
+    opacity: 0.7;
 }
 
-.logoDivider {
-    color: var(--text-muted);
-    font-weight: 300;
-}
-
-.logoText {
-    color: var(--text-primary);
-}
-
+/* ---- Links ---- */
 .links {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 2.5rem;
 }
 
 .link {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--white);
     position: relative;
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    transition: color var(--duration-fast);
-    text-decoration: none;
-}
-
-.link:hover {
-    color: var(--text-primary);
+    transition: opacity 0.3s;
 }
 
 .link::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    width: 60%;
-    height: 2px;
-    background: var(--accent);
-    border-radius: 2px;
-    transition: transform var(--duration-fast) var(--ease-smooth);
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--sage);
+    transition: width 0.3s var(--ease-smooth);
 }
 
-.link:hover::after,
-.link.active::after {
-    transform: translateX(-50%) scaleX(1);
+.link:hover {
+    opacity: 0.8;
 }
 
-.link.active {
-    color: var(--accent-light);
+.link:hover::after {
+    width: 100%;
 }
 
-.burger {
-    display: none;
-    color: var(--text-primary);
-    padding: 0.5rem;
+/* ---- CTA — Liquid Glass Button ---- */
+.cta {
+    position: relative;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--white);
+    padding: 0.65rem 1.6rem;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px) saturate(1.4);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow:
+        0 0 6px rgba(0, 0, 0, 0.03),
+        0 2px 8px rgba(0, 0, 0, 0.08),
+        inset 1px 1px 1px rgba(255, 255, 255, 0.12),
+        inset -1px -1px 1px rgba(255, 255, 255, 0.06),
+        0 0 16px rgba(255, 255, 255, 0.04);
 }
 
-.mobileMenu {
-    background: rgba(10, 10, 15, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
+/* Glass inner glow layer */
+.cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0) 40%,
+            rgba(255, 255, 255, 0.02) 60%,
+            rgba(255, 255, 255, 0.08) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Liquid distortion layer */
+.cta::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    filter: url("#liquid-glass");
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.cta:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow:
+        0 0 8px rgba(0, 0, 0, 0.04),
+        0 4px 16px rgba(0, 0, 0, 0.12),
+        inset 2px 2px 2px rgba(255, 255, 255, 0.15),
+        inset -2px -2px 2px rgba(255, 255, 255, 0.08),
+        0 0 24px rgba(255, 255, 255, 0.06);
+}
+
+.cta:active {
+    transform: scale(0.97);
+}
+
+/* ---- Hidden SVG filter ---- */
+.svgFilter {
+    position: absolute;
+    width: 0;
+    height: 0;
     overflow: hidden;
 }
 
-.mobileLinks {
-    padding: 1rem 2rem 1.5rem;
-    display: flex;
+/* ---- Burger ---- */
+.burger {
+    display: none;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 6px;
+    padding: 4px;
+    z-index: 1001;
 }
 
-.mobileLink {
+.burger span {
     display: block;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    border-radius: 8px;
-    transition: all var(--duration-fast);
-    text-decoration: none;
+    width: 24px;
+    height: 1px;
+    background: var(--white);
+    transition: all 0.3s var(--ease-smooth);
 }
 
-.mobileLink:hover,
-.mobileLink.active {
-    color: var(--accent-light);
-    background: rgba(139, 92, 246, 0.1);
+.burgerOpen span:first-child {
+    transform: rotate(45deg) translate(2px, 4px);
 }
 
+.burgerOpen span:last-child {
+    transform: rotate(-45deg) translate(2px, -4px);
+}
+
+/* ---- Mobile ---- */
 @media (max-width: 768px) {
-    .links {
-        display: none;
+    .nav {
+        padding: 1rem 1.25rem;
+    }
+
+    .nav.scrolled {
+        padding: 0.75rem 1.25rem;
     }
 
     .burger {
-        display: block;
+        display: flex;
     }
 
-    .inner {
-        padding: 0 1.25rem;
+    .links {
+        position: fixed;
+        inset: 0;
+        background: rgba(23, 30, 25, 0.92);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        flex-direction: column;
+        justify-content: center;
+        gap: 2rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+    }
+
+    .links.open {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .link {
+        font-size: 0.9rem;
+        letter-spacing: 4px;
+    }
+
+    .cta {
+        font-size: 0.9rem;
     }
 }

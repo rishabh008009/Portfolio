@@ -1,288 +1,180 @@
 .hero {
     position: relative;
-    min-height: 100vh;
+    height: 200vh;
+    /* scroll space for text reveal */
+    background: var(--navy);
+    overflow: visible;
+}
+
+/* ---- Sticky container — pins content to viewport ---- */
+.sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
 
-/* ---- Animated background orbs ---- */
-.bgOrbs {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-}
-
+/* ---- Ambient Orbs ---- */
 .orb {
-    position: absolute;
+    position: fixed;
+    width: 384px;
+    height: 384px;
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.35;
-}
-
-.orb1 {
-    width: 500px;
-    height: 500px;
-    background: #8b5cf6;
-    top: -10%;
-    right: -5%;
-    animation: float 8s ease-in-out infinite;
-}
-
-.orb2 {
-    width: 400px;
-    height: 400px;
-    background: #6d28d9;
-    bottom: -10%;
-    left: -5%;
-    animation: float 10s ease-in-out infinite 2s;
-}
-
-.orb3 {
-    width: 300px;
-    height: 300px;
-    background: #4c1d95;
-    top: 40%;
-    left: 50%;
-    animation: float 12s ease-in-out infinite 4s;
-}
-
-.gridOverlay {
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
+    filter: blur(120px);
+    opacity: 0.15;
     pointer-events: none;
-}
-
-/* ---- Split layout ---- */
-.heroInner {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 3rem;
-    padding: 2rem;
-    max-width: 1100px;
-    width: 100%;
-}
-
-/* ---- Content (left) ---- */
-.content {
-    flex: 1;
-    text-align: left;
-}
-
-.badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1.25rem;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--bg-card);
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
-    backdrop-filter: blur(8px);
-}
-
-.badgeDot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #22c55e;
-    animation: pulse-glow 2s ease-in-out infinite;
-}
-
-.greeting {
-    font-size: clamp(1rem, 2vw, 1.3rem);
-    color: var(--accent-light);
-    font-weight: 500;
-    margin-bottom: 0.75rem;
-    letter-spacing: 0.5px;
-}
-
-.headline {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.word {
-    background: linear-gradient(135deg, #f1f1f1 0%, #d4d4d8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.divider {
-    color: var(--accent);
-    -webkit-text-fill-color: var(--accent);
-    font-weight: 300;
-}
-
-.subtitle {
-    font-size: clamp(1rem, 2vw, 1.15rem);
-    color: var(--text-secondary);
-    max-width: 520px;
-    margin-bottom: 2.5rem;
-    line-height: 1.8;
-}
-
-.ctas {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-/* ---- Hero image (right) ---- */
-.heroImage {
-    position: relative;
-    flex-shrink: 0;
-    width: 320px;
-    height: 380px;
-}
-
-.imageGlow {
-    position: absolute;
-    inset: -20px;
-    border-radius: 30px;
-    background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
-    filter: blur(25px);
+    animation: float 6s ease-in-out infinite;
     z-index: 0;
 }
 
-.heroPhoto {
+.orbSage {
+    background: var(--sage);
+    top: 15%;
+    left: 10%;
+}
+
+.orbBlue {
+    background: var(--soft-blue);
+    top: 50%;
+    right: 10%;
+    animation-delay: -3s;
+}
+
+/* ---- Content ---- */
+.content {
     position: relative;
     z-index: 1;
     width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center bottom;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 3rem;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
 }
 
-/* ---- Scroll indicator ---- */
-.scrollIndicator {
+/* ---- Headline ---- */
+.headline {
+    text-align: center;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.solidLine {
+    font-size: clamp(5rem, 18vw, 16rem);
+    line-height: 0.85;
+    color: var(--white);
+}
+
+/* ---- Reveal Line (MANAGER) ---- */
+.revealLine {
+    font-size: clamp(5rem, 18vw, 16rem);
+    line-height: 0.85;
+    display: inline-flex;
+}
+
+.letterWrap {
+    position: relative;
+    display: inline-block;
+}
+
+.letterGhost {
+    /* always-visible outline layer */
+    display: inline-block;
+}
+
+.letterSolid {
+    /* absolute on top — fades from 0→1 via scroll */
     position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    animation: bounce-hint 2s ease-in-out infinite;
+    inset: 0;
+    color: var(--white);
+    display: inline-block;
 }
 
-.scrollText {
+/* ---- Bottom row ---- */
+.bottom {
+    position: absolute;
+    bottom: 3rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.tagline {
+    font-family: var(--font-body);
     font-size: 0.75rem;
-    color: var(--text-muted);
-    letter-spacing: 2px;
+    font-weight: 400;
     text-transform: uppercase;
-    font-weight: 500;
+    letter-spacing: 2px;
+    color: var(--taupe);
+    max-width: 320px;
+    line-height: 1.8;
 }
 
-.scrollArrows {
+.scrollArrow {
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 0px;
+    justify-content: center;
+    color: var(--white);
+    animation: bounce 2s ease-in-out infinite;
+    transition: border-color var(--duration-fast);
 }
 
-.chevron {
-    display: block;
-    width: 14px;
-    height: 14px;
-    border-right: 2px solid var(--accent);
-    border-bottom: 2px solid var(--accent);
-    transform: rotate(45deg);
-    animation: chevron-pulse 2s ease-in-out infinite;
+.scrollArrow:hover {
+    border-color: var(--sage);
 }
 
-.chevron:nth-child(2) {
-    animation-delay: 0.3s;
-    margin-top: -6px;
-}
-
-@keyframes bounce-hint {
+@keyframes bounce {
 
     0%,
     100% {
-        transform: translateX(-50%) translateY(0);
+        transform: translateY(0);
     }
 
     50% {
-        transform: translateX(-50%) translateY(10px);
+        transform: translateY(6px);
     }
 }
 
-@keyframes chevron-pulse {
-    0% {
-        opacity: 0.3;
-    }
+@keyframes float {
 
-    50% {
-        opacity: 1;
-    }
-
+    0%,
     100% {
-        opacity: 0.3;
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(20px, -20px);
     }
 }
 
+/* ---- Responsive ---- */
 @media (max-width: 768px) {
-    .heroInner {
-        flex-direction: column;
-        text-align: center;
-    }
-
     .content {
-        text-align: center;
+        padding: 0 1.5rem;
     }
 
-    .headline {
-        font-size: clamp(2rem, 10vw, 3.5rem);
-        justify-content: center;
+    .bottom {
+        bottom: 2rem;
     }
 
-    .subtitle {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .ctas {
-        justify-content: center;
-    }
-
-    .heroImage {
-        width: 220px;
-        height: 260px;
-    }
-
-    .orb1 {
-        width: 300px;
-        height: 300px;
-    }
-
-    .orb2 {
-        width: 250px;
-        height: 250px;
-    }
-
-    .orb3 {
-        width: 200px;
-        height: 200px;
+    .tagline {
+        max-width: 200px;
+        font-size: 0.65rem;
     }
 }

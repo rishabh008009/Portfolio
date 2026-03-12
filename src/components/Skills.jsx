@@ -1,102 +1,150 @@
 'use client';
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Zap } from 'lucide-react';
+import { useRef, useEffect, useState } from 'react';
+import {
+    Briefcase, TrendingUp, Users, Award,
+    Target, Brain,
+} from 'lucide-react';
 import styles from './Skills.module.css';
 
-const skills = [
-    { name: 'Product Thinking & Problem Framing', level: 90 },
-    { name: 'User Research & Requirement Gathering', level: 88 },
-    { name: 'Roadmap Planning & Prioritization', level: 85 },
-    { name: 'Data-Driven Decision Making', level: 92 },
-    { name: 'Stakeholder Collaboration', level: 95 },
-    { name: 'Process Improvement & Delivery', level: 90 },
-    { name: 'Metrics Definition & Evaluation', level: 85 },
+/* ── Animated counter ── */
+function Counter({ value, suffix, isInView }) {
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        if (!isInView) return;
+        let start = 0;
+        const dur = 2000;
+        const step = value / (dur / 16);
+        const t = setInterval(() => {
+            start += step;
+            if (start >= value) { setCount(value); clearInterval(t); }
+            else setCount(Math.floor(start));
+        }, 16);
+        return () => clearInterval(t);
+    }, [isInView, value]);
+    return <>{count}{suffix}</>;
+}
+
+/* ── Cell animation ── */
+const anim = (d = 0) => ({
+    initial: { opacity: 0, y: 24, scale: 0.97 },
+    whileInView: { opacity: 1, y: 0, scale: 1 },
+    viewport: { once: true, margin: '-60px' },
+    transition: { delay: d, duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+});
+
+/* ── Data ── */
+const chips = [
+    'User Research', 'Data-Driven Decisions', 'Cross-Functional Leadership',
+    'Agile & Scrum', 'UX Design & Prototyping', 'Stakeholder Management',
+    'Process Optimization', 'KPI Dashboards',
 ];
 
 const tools = [
-    { name: 'Power BI', emoji: '📊' },
-    { name: 'Jira', emoji: '📋' },
     { name: 'Figma', emoji: '🎨' },
-    { name: 'Canva', emoji: '🖌️' },
-    { name: 'Excel', emoji: '📈' },
-    { name: 'SQL', emoji: '🗃️' },
-    { name: 'Supabase', emoji: '⚡' },
-    { name: 'Google Gemini', emoji: '🤖' },
-    { name: 'n8n', emoji: '🔗' },
+    { name: 'Jira', emoji: '📋' },
+    { name: 'SQL', emoji: '🗄️' },
     { name: 'React', emoji: '⚛️' },
-    { name: 'TypeScript', emoji: '💎' },
-    { name: 'PowerPoint', emoji: '📑' },
+    { name: 'Supabase', emoji: '⚡' },
+    { name: 'n8n', emoji: '🔗' },
+    { name: 'Power BI', emoji: '📊' },
+    { name: 'Canva', emoji: '🖌️' },
 ];
 
-function SkillBar({ name, level, index }) {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: '-50px' });
-
-    return (
-        <div className={styles.skillRow} ref={ref}>
-            <div className={styles.skillInfo}>
-                <span className={styles.skillName}>{name}</span>
-                <span className={styles.skillPct}>{level}%</span>
-            </div>
-            <div className={styles.barTrack}>
-                <motion.div
-                    className={styles.barFill}
-                    initial={{ width: 0 }}
-                    animate={isInView ? { width: `${level}%` } : {}}
-                    transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                />
-            </div>
-        </div>
-    );
-}
-
 export default function Skills() {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: '-80px' });
+
     return (
-        <section id="skills">
-            <div className="section">
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-100px' }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <p className="section-label"><Zap size={14} /> Skills & Tools</p>
-                    <h2 className="section-title">My PM Toolkit</h2>
-                    <p className="section-subtitle">
-                        Skills honed through 8+ years at Amazon and hands-on PM projects — from product strategy to AI-powered delivery.
-                    </p>
-                </motion.div>
+        <section id="skills" className={styles.skills} ref={ref}>
+            <div className={styles.inner}>
+                <motion.span className={styles.label} {...anim(0)}>Capabilities</motion.span>
+                <motion.h2 className={styles.heading} {...anim(0.05)}>
+                    WHAT I BRING<br />TO THE TABLE
+                </motion.h2>
 
-                <div className={styles.grid}>
-                    {/* Skills bars */}
-                    <div className={styles.skillsCol}>
-                        <h3 className={styles.colTitle}>Core PM Skills</h3>
-                        {skills.map((skill, i) => (
-                            <SkillBar key={skill.name} {...skill} index={i} />
-                        ))}
-                    </div>
+                <div className={styles.bento}>
+                    {/* ─── ROW 1 ─── */}
+                    {/* Tagline — 2 cols */}
+                    <motion.div className={`${styles.cell} ${styles.aTagline}`} {...anim(0.1)}>
+                        <h3 className={styles.taglineText}>
+                            Building Products at the Intersection of{' '}
+                            <em className={styles.em}>AI</em> &amp; User{' '}
+                            <em className={styles.em}>Experience</em>
+                        </h3>
+                    </motion.div>
 
-                    {/* Tools grid */}
-                    <div className={styles.toolsCol}>
-                        <h3 className={styles.colTitle}>Tools I Use</h3>
-                        <div className={styles.toolGrid}>
+                    {/* Stat — Years */}
+                    <motion.div className={`${styles.cell} ${styles.statCell} ${styles.aStatYears}`} {...anim(0.15)} whileHover={{ y: -4, scale: 1.03 }}>
+                        <Briefcase size={20} className={styles.statIcon} />
+                        <span className={styles.statNumber}><Counter value={8} suffix="+" isInView={isInView} /></span>
+                        <span className={styles.statLabel}>Years at Amazon</span>
+                    </motion.div>
+
+                    {/* Tools — tall, spans 2 rows */}
+                    <motion.div className={`${styles.cell} ${styles.aTools}`} {...anim(0.2)}>
+                        <span className={styles.toolsHeading}>Tools &amp; Tech</span>
+                        <ul className={styles.toolsList}>
                             {tools.map((tool, i) => (
-                                <motion.div
-                                    key={tool.name}
-                                    className={styles.toolTile}
-                                    initial={{ opacity: 0, scale: 0.8 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
+                                <motion.li key={tool.name} className={styles.toolItem}
+                                    initial={{ opacity: 0, x: 8 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: i * 0.05, duration: 0.4 }}
-                                    whileHover={{ scale: 1.08, y: -4 }}
+                                    transition={{ delay: 0.3 + i * 0.05, duration: 0.35 }}
                                 >
                                     <span className={styles.toolEmoji}>{tool.emoji}</span>
-                                    <span className={styles.toolLabel}>{tool.name}</span>
-                                </motion.div>
+                                    {tool.name}
+                                </motion.li>
+                            ))}
+                        </ul>
+                    </motion.div>
+
+                    {/* ─── ROW 2 ─── */}
+                    {/* Skill: Product Strategy */}
+                    <motion.div className={`${styles.cell} ${styles.skillCard} ${styles.aSkill1}`} {...anim(0.25)} whileHover={{ y: -4 }}>
+                        <Target size={22} className={styles.skillIcon} />
+                        <span className={styles.skillTitle}>Product Strategy</span>
+                        <span className={styles.skillSub}>Roadmapping, prioritization &amp; go-to-market planning</span>
+                    </motion.div>
+
+                    {/* Skill: AI & LLM */}
+                    <motion.div className={`${styles.cell} ${styles.skillCard} ${styles.aSkill2}`} {...anim(0.3)} whileHover={{ y: -4 }}>
+                        <Brain size={22} className={styles.skillIcon} />
+                        <span className={styles.skillTitle}>Agentic AI &amp; LLM</span>
+                        <span className={styles.skillSub}>Prompt engineering, AI workflows &amp; intelligent automation</span>
+                    </motion.div>
+
+                    {/* Stat — Productivity */}
+                    <motion.div className={`${styles.cell} ${styles.statCell} ${styles.aStatProd}`} {...anim(0.35)} whileHover={{ y: -4, scale: 1.03 }}>
+                        <TrendingUp size={20} className={styles.statIcon} />
+                        <span className={styles.statNumber}><Counter value={25} suffix="%" isInView={isInView} /></span>
+                        <span className={styles.statLabel}>Productivity Boost</span>
+                    </motion.div>
+
+                    {/* ─── ROW 3 ─── */}
+                    {/* Stat — Associates */}
+                    <motion.div className={`${styles.cell} ${styles.statCell} ${styles.aStatAssoc}`} {...anim(0.4)} whileHover={{ y: -4, scale: 1.03 }}>
+                        <Users size={20} className={styles.statIcon} />
+                        <span className={styles.statNumber}><Counter value={400} suffix="+" isInView={isInView} /></span>
+                        <span className={styles.statLabel}>Associates Led</span>
+                    </motion.div>
+
+                    {/* Chips — 2 cols */}
+                    <motion.div className={`${styles.cell} ${styles.aChips}`} {...anim(0.45)}>
+                        <div className={styles.chipsWrap}>
+                            {chips.map((chip, i) => (
+                                <motion.span key={chip} className={styles.chip}
+                                    initial={{ opacity: 0, scale: 0.85 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.45 + i * 0.04, duration: 0.35 }}
+                                    whileHover={{ scale: 1.08, backgroundColor: 'rgba(183,198,194,0.18)' }}
+                                >{chip}</motion.span>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
+
+                    {/* Stat — CSAT (under tools) - tools spans this row already */}
                 </div>
             </div>
         </section>

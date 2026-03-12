@@ -20,16 +20,16 @@ const certifications = [
     },
     {
         id: 2,
-        title: 'Coming Soon',
-        issuer: 'Certificate pending',
-        date: '',
-        issuedDate: '',
-        credentialId: '',
-        verifyUrl: '',
-        image: '',
-        description: 'Another hackathon certification is on the way. Stay tuned!',
-        tags: [],
-        status: 'coming-soon',
+        title: 'HackArena 3.0 — Masai Verse × Axes Systems',
+        issuer: 'Masai Verse · Axes Systems',
+        date: 'February 6–7, 2026',
+        issuedDate: 'March 10, 2026',
+        credentialId: 'MtzVpbBtuY',
+        verifyUrl: 'https://verify.masaischool.com/certificate/MtzVpbBtuY',
+        image: '/cert-hackarena.png',
+        description: 'Participation Certificate for successfully participating in HackArena 3.0 held on 6th & 7th February, 2026. Recognized for dedication and creativity.',
+        tags: ['Hackathon', 'Masai Verse', 'Axes Systems'],
+        status: 'issued',
     },
 ];
 
@@ -37,61 +37,56 @@ export default function Certifications() {
     const [preview, setPreview] = useState(null);
 
     return (
-        <section id="certifications">
-            <div className="section">
+        <section id="certifications" className={styles.certifications}>
+            <div className={styles.inner}>
                 <motion.div
-                    initial={{ opacity: 0, y: 40 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-100px' }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.8 }}
                 >
-                    <p className="section-label"><Award size={14} /> Certifications</p>
-                    <h2 className="section-title">Credentials &amp; Achievements</h2>
-                    <p className="section-subtitle">
-                        Verified certifications from hackathons, cloud platforms, and industry programs.
-                    </p>
+                    <span className={styles.label}>Certifications</span>
+                    <h2 className={styles.heading}>
+                        Credentials
+                        <br />
+                        <span className="text-outline">& Achievements</span>
+                    </h2>
                 </motion.div>
 
                 <div className={styles.grid}>
                     {certifications.map((cert, i) => (
                         <motion.div
                             key={cert.id}
-                            className={`glass-card ${styles.card} ${cert.status === 'coming-soon' ? styles.comingSoon : ''}`}
-                            initial={{ opacity: 0, y: 40 }}
+                            className={`${styles.card} ${cert.status === 'coming-soon' ? styles.comingSoon : ''}`}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: '-50px' }}
-                            transition={{ delay: i * 0.15, duration: 0.5 }}
+                            transition={{ delay: i * 0.15, duration: 0.6 }}
                         >
                             {cert.status === 'coming-soon' ? (
                                 <div className={styles.comingSoonContent}>
-                                    <div className={styles.comingSoonIcon}>
-                                        <Clock size={40} strokeWidth={1.2} />
-                                    </div>
+                                    <Clock size={32} strokeWidth={1} className={styles.comingSoonIcon} />
                                     <h3 className={styles.cardTitle}>{cert.title}</h3>
-                                    <p className={styles.cardIssuer}>{cert.description}</p>
+                                    <p className={styles.cardDesc}>{cert.description}</p>
                                 </div>
                             ) : (
                                 <>
                                     {cert.image && (
-                                        <div
-                                            className={styles.certImage}
-                                            onClick={() => setPreview(cert)}
-                                        >
+                                        <div className={styles.certImage} onClick={() => setPreview(cert)}>
                                             <img src={cert.image} alt={cert.title} />
                                             <div className={styles.imageOverlay}>
-                                                <span>Click to preview</span>
+                                                <div className={styles.viewBadge}>VIEW</div>
                                             </div>
                                         </div>
                                     )}
                                     <div className={styles.cardBody}>
                                         <div className={styles.statusBadge}>
-                                            <ShieldCheck size={14} /> Verified
+                                            <ShieldCheck size={12} /> Verified
                                         </div>
                                         <h3 className={styles.cardTitle}>{cert.title}</h3>
                                         <p className={styles.cardIssuer}>{cert.issuer}</p>
                                         <p className={styles.cardDate}>Issued: {cert.issuedDate}</p>
-                                        <p className={styles.cardDescription}>{cert.description}</p>
-
+                                        <p className={styles.cardDesc}>{cert.description}</p>
                                         {cert.tags.length > 0 && (
                                             <div className={styles.tags}>
                                                 {cert.tags.map(tag => (
@@ -99,19 +94,11 @@ export default function Certifications() {
                                                 ))}
                                             </div>
                                         )}
-
                                         <div className={styles.cardFooter}>
-                                            <span className={styles.credentialId}>
-                                                ID: {cert.credentialId}
-                                            </span>
+                                            <span className={styles.credentialId}>ID: {cert.credentialId}</span>
                                             {cert.verifyUrl && (
-                                                <a
-                                                    href={cert.verifyUrl}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className={styles.verifyLink}
-                                                >
-                                                    Verify <ExternalLink size={14} />
+                                                <a href={cert.verifyUrl} target="_blank" rel="noopener noreferrer" className={styles.verifyLink}>
+                                                    Verify <ExternalLink size={12} />
                                                 </a>
                                             )}
                                         </div>
@@ -123,7 +110,7 @@ export default function Certifications() {
                 </div>
             </div>
 
-            {/* Certificate Preview Modal */}
+            {/* Preview Modal */}
             <AnimatePresence>
                 {preview && (
                     <motion.div
@@ -135,32 +122,23 @@ export default function Certifications() {
                     >
                         <motion.div
                             className={styles.modal}
-                            initial={{ opacity: 0, scale: 0.9 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.9 }}
-                            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.3 }}
                             onClick={(e) => e.stopPropagation()}
                         >
                             <button className={styles.closeBtn} onClick={() => setPreview(null)}>
                                 <X size={20} />
                             </button>
-                            <img
-                                src={preview.image}
-                                alt={preview.title}
-                                className={styles.modalImage}
-                            />
+                            <img src={preview.image} alt={preview.title} className={styles.modalImage} />
                             <div className={styles.modalInfo}>
                                 <h3>{preview.title}</h3>
                                 <p>{preview.issuer} · {preview.issuedDate}</p>
                                 <div className={styles.modalActions}>
                                     <span className={styles.credentialId}>ID: {preview.credentialId}</span>
-                                    <a
-                                        href={preview.verifyUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="btn btn-primary"
-                                    >
-                                        <ShieldCheck size={16} /> Verify Certificate
+                                    <a href={preview.verifyUrl} target="_blank" rel="noopener noreferrer" className={styles.verifyBtn}>
+                                        <ShieldCheck size={14} /> Verify Certificate
                                     </a>
                                 </div>
                             </div>
